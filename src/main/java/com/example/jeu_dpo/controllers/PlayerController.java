@@ -11,17 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 @RestController
 @RequestMapping("")
 public class PlayerController {
-
-    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
-
 
     @Autowired
     private PlayerService playerService;
@@ -50,20 +42,17 @@ public class PlayerController {
             playerService.deleteAccountPlayer(id);
     }
 
+    @PutMapping("/updateProfile/{id}")
+    public ResponseEntity<?> updateProfile(@PathVariable("id") Long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email) {
+            playerService.updateProfile(id, firstName, lastName, email);
+            return ResponseEntity.ok("Profile updated successfully.");
+    }
+
     @PutMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest, Authentication authentication) {
-        try {
             String email = authentication.getName();
             playerService.updatePassword(email, passwordChangeRequest);
             return ResponseEntity.ok("Password changed successfully.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password change failed.");
-        }
     }
-
-
-
 
 }

@@ -39,11 +39,6 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player savePlayer(Player player) {
-        return playerRepository.save(player);
-    }
-
-    @Override
     public Player registerPlayer(Player player) {
         player.setPassword(passwordEncoder.encode(player.getPassword()));
         player.setJoinDate(new Date());
@@ -54,8 +49,7 @@ public class PlayerServiceImpl implements PlayerService {
    @Override
     public String login(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
-        );
+                new UsernamePasswordAuthenticationToken(email, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return jwtService.generateToken((UserDetails) authentication.getPrincipal());
     }
@@ -66,8 +60,16 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void updatePassword(String email, PasswordChangeRequest passwordChangeRequest) {
+    public void updateProfile(Long id, String firstName, String lastName, String email) {
+        Player player = playerRepository.findById(id).orElse(null);
+        player.setFirstName(firstName);
+        player.setLastName(lastName);
+        player.setEmail(email);
+        playerRepository.save(player);
+    }
 
+    @Override
+    public void updatePassword(String email, PasswordChangeRequest passwordChangeRequest) {
         Player player = playerRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Player not found with email: " + email));
 
@@ -81,10 +83,6 @@ public class PlayerServiceImpl implements PlayerService {
 
         player.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
         playerRepository.save(player);
-
     }
-
-
-
 
 }
