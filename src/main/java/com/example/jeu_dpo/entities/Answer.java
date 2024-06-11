@@ -7,28 +7,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Level implements Serializable {
+public class Answer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String levelNumber;
-    private String title;
-    private String description;
-    @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
+    private String answerText;
+    private boolean isCorrect;
 
     /* ASSOCIATIONS */
     @ManyToOne
-    Player player;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="level")
-    private List<Game> games;
+    private Question question;
 }

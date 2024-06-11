@@ -2,7 +2,6 @@ package com.example.jeu_dpo.services;
 
 import com.example.jeu_dpo.entities.Player;
 import com.example.jeu_dpo.security.password.PasswordChangeRequest;
-import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 

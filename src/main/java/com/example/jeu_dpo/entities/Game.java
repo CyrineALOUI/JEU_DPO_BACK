@@ -6,29 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.List;
-
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="game_type")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Level implements Serializable {
+public abstract class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String levelNumber;
-    private String title;
-    private String description;
-    @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
 
     /* ASSOCIATIONS */
     @ManyToOne
-    Player player;
+    @JoinColumn(name = "level_id")
+    private Level level;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="level")
-    private List<Game> games;
 }

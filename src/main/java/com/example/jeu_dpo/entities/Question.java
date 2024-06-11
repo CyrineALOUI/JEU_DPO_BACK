@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,21 +13,17 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Level implements Serializable {
+public class Question implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String levelNumber;
-    private String title;
-    private String description;
-    @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
+    private String questionText;
 
     /* ASSOCIATIONS */
     @ManyToOne
-    Player player;
+    private Quiz quiz;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="level")
-    private List<Game> games;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answers;
 }
