@@ -5,7 +5,7 @@ import com.example.jeu_dpo.repositories.PlayerRepository;
 import com.example.jeu_dpo.security.JwtService;
 import com.example.jeu_dpo.security.password.PasswordChangeRequest;
 import com.example.jeu_dpo.services.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,19 +19,13 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    @Autowired
-    private PlayerRepository playerRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtService jwtService;
+    private final PlayerRepository playerRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @Override
     public Optional<Player> findByEmail(String email) {

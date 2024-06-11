@@ -7,23 +7,17 @@ import com.example.jeu_dpo.repositories.AnswerRepository;
 import com.example.jeu_dpo.repositories.QuestionRepository;
 import com.example.jeu_dpo.repositories.QuizRepository;
 import com.example.jeu_dpo.services.QuizService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class QuizServiceImpl implements QuizService {
 
-    @Autowired
-    private QuizRepository quizRepository;
-
-    @Autowired
-    private QuestionRepository questionRepository;
-
-    @Autowired
-    private AnswerRepository answerRepository;
-
+    private final QuizRepository quizRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
     /* QUIZ IMPL */
     @Override

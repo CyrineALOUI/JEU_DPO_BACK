@@ -5,7 +5,7 @@ import com.example.jeu_dpo.security.AuthRequest;
 import com.example.jeu_dpo.security.AuthResponse;
 import com.example.jeu_dpo.security.password.PasswordChangeRequest;
 import com.example.jeu_dpo.services.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("")
+@RequiredArgsConstructor
 public class PlayerController {
 
-    @Autowired
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerPlayer(@RequestBody Player player) {

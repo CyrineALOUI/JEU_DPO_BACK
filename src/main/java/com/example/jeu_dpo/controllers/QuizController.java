@@ -4,21 +4,20 @@ import com.example.jeu_dpo.entities.Answer;
 import com.example.jeu_dpo.entities.Question;
 import com.example.jeu_dpo.entities.Quiz;
 import com.example.jeu_dpo.services.QuizService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("")
+@RequiredArgsConstructor
 public class QuizController {
 
-    @Autowired
-    private QuizService quizService;
+    private final QuizService quizService;
 
     /* QUIZ */
     @GetMapping("/listQuizzes")
@@ -47,7 +46,7 @@ public class QuizController {
     }
 
     /* ANSWER */
-    @GetMapping("/listQuestions")
+    @GetMapping("/listAnswers")
     public ResponseEntity<List<Answer>> getAllAnswers() {
         List<Answer> answers = quizService.getAllAnswers();
         return ResponseEntity.ok(answers);
