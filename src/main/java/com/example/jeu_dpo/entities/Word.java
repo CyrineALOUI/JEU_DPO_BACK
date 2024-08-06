@@ -1,29 +1,34 @@
 package com.example.jeu_dpo.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="game_type")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Game {
+public class Word implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* ASSOCIATIONS */
+    private String word;
+    private String clue;
+    private int startX;
+    private int startY;
+    private boolean isHorizontal;
+    private boolean isVertical;
+    private int number;
+
+
     @ManyToOne
-    @JoinColumn(name = "level_id")
-    @JsonBackReference
-    private Level level;
+    private Crossword crossword;
 
 }

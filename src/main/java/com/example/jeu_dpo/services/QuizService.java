@@ -19,4 +19,5 @@ public interface QuizService {
     /* ANSWER SERVICES */
     public List<Answer> getAllAnswers();
     public Answer getAnswerById(Long id);
+    boolean verifyAnswers(List<Long> answerIds);
 }

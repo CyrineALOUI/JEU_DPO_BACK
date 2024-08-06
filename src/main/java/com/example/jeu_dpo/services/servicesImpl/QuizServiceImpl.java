@@ -10,6 +10,7 @@ import com.example.jeu_dpo.services.QuizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,15 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public Quiz getQuizById(Long id) {
-        return quizRepository.findById(id).orElse(null);
+        Optional<Quiz> quizOptional = quizRepository.findById(id);
+        if (quizOptional.isPresent()) {
+            Quiz quiz = quizOptional.get();
+            quiz.getQuestions().forEach(question -> {
+                question.getAnswers().size();
+            });
+            return quiz;
+        }
+        return null;
     }
 
     /* QUESTION IMPL */
@@ -51,4 +60,12 @@ public class QuizServiceImpl implements QuizService {
     public Answer getAnswerById(Long id) {
         return answerRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public boolean verifyAnswers(List<Long> answerIds) {
+        List<Answer> answers = answerRepository.findAllById(answerIds);
+        return answers.stream().allMatch(Answer::isCorrect);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.jeu_dpo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +24,6 @@ public class Answer implements Serializable {
 
     /* ASSOCIATIONS */
     @ManyToOne
+    @JsonIgnore
     private Question question;
 }

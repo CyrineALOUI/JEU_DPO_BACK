@@ -19,5 +19,4 @@ public class PlayerDetailsService implements UserDetailsService {
         return playerRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Player not found with email: " + email));
     }
-
 }

@@ -6,10 +6,8 @@ import com.example.jeu_dpo.entities.Quiz;
 import com.example.jeu_dpo.services.QuizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -56,6 +54,12 @@ public class QuizController {
     public ResponseEntity<Answer> getAnswerById(@PathVariable Long id) {
         Answer answer = quizService.getAnswerById(id);
         return ResponseEntity.ok(answer);
+    }
+
+    @PostMapping("/verifyAnswers")
+    public ResponseEntity<Boolean> verifyAnswers(@RequestBody List<Long> answerIds) {
+        boolean result = quizService.verifyAnswers(answerIds);
+        return ResponseEntity.ok(result);
     }
 
 }

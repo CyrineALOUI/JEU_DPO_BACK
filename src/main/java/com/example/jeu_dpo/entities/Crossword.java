@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,10 +14,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quiz extends Game {
+public class Crossword extends Game {
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("quiz")
-    private List<Question> questions;
+    private int gridSize;
+
+    @OneToMany(mappedBy = "crossword", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("crossword")
+    private List<Word> words = new ArrayList<>();
 
 }
