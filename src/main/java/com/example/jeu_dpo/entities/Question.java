@@ -19,6 +19,7 @@ public class Question implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String questionText;
+    private int duration;
 
     /* ASSOCIATIONS */
     @ManyToOne

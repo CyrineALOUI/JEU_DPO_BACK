@@ -66,6 +66,4 @@ public class QuizServiceImpl implements QuizService {
         List<Answer> answers = answerRepository.findAllById(answerIds);
         return answers.stream().allMatch(Answer::isCorrect);
     }
-
-
 }
